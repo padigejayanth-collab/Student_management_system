@@ -18,9 +18,6 @@ public class Student {
     @Column(nullable = false)
     private Integer semester;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date createdAt;
 
     public Student() {}
 
@@ -30,10 +27,6 @@ public class Student {
         this.semester = semester;
     }
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = new java.util.Date();
-    }
 
     // Getters
     public Long getId() {
@@ -52,9 +45,6 @@ public class Student {
         return semester;
     }
 
-    public java.util.Date getCreatedAt() {
-        return createdAt;
-    }
 
     // Setters
     public void setId(Long id) {
@@ -73,7 +63,5 @@ public class Student {
         this.semester = semester;
     }
 
-    public void setCreatedAt(java.util.Date createdAt) {
-        this.createdAt = createdAt;
-    }
+    // removed createdAt mapping to avoid schema mismatch with existing database
 }
