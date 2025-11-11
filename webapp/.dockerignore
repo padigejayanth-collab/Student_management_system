@@ -1,0 +1,11 @@
+target
+.mvn
+.git
+.idea
+*.iml
+logs
+node_modules
+frontend/node_modules
+**/target
+*.jar
+*.log

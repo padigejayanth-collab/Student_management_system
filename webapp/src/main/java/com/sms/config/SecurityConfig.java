@@ -17,7 +17,9 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**", "/api/students/**", "/actuator/**", "/", "/index.html", "/js/**", "/css/**", "/public/**").permitAll()
+                // Allow unauthenticated access to authentication endpoints and static assets
+                .requestMatchers("/api/auth/**", "/actuator/**", "/", "/index.html", "/js/**", "/css/**", "/public/**").permitAll()
+                // All other API endpoints require authentication in production
                 .anyRequest().authenticated()
             )
             // Do not use HTTP Basic (browser popup). Instead return 401 JSON/Status so frontend can handle auth flows.
