@@ -3,7 +3,20 @@
 // Modern SPA with React-like Components
 // ================================================
 
-const API_URL = 'http://localhost:8080/api';
+// Dynamic API URL - works in both local and deployed environments
+// Uses relative path for same-origin requests, or detects current host
+const getApiUrl = () => {
+    // If running on same origin (Spring Boot serves static files), use relative path
+    if (window.location.protocol === 'file:') {
+        // For local file testing, default to localhost
+        return 'http://localhost:8080/api';
+    }
+    // For deployment, use relative path or current origin
+    const baseUrl = window.location.origin;
+    return `${baseUrl}/api`;
+};
+
+const API_URL = getApiUrl();
 let currentUser = null;
 let appState = {
     currentPage: 'login',

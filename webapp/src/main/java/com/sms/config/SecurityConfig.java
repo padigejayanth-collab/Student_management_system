@@ -17,10 +17,10 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // Allow unauthenticated access to authentication endpoints and static assets
-                .requestMatchers("/api/auth/**", "/actuator/**", "/", "/index.html", "/js/**", "/css/**", "/public/**").permitAll()
-                // All other API endpoints require authentication in production
-                .anyRequest().authenticated()
+                // Allow unauthenticated access to authentication endpoints, API endpoints, and static assets
+                .requestMatchers("/api/**", "/actuator/**", "/", "/index.html", "/js/**", "/css/**", "/public/**", "/webapp/**").permitAll()
+                // All other requests are allowed (for static resources)
+                .anyRequest().permitAll()
             )
             // Do not use HTTP Basic (browser popup). Instead return 401 JSON/Status so frontend can handle auth flows.
             .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)));

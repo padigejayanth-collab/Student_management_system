@@ -3,7 +3,19 @@
 // Modern, Responsive Web Application
 // ================================================
 
-const API_BASE_URL = 'http://localhost:8080/api';
+// Dynamic API URL - works in both local and deployed environments
+const getApiUrl = () => {
+    // If running on same origin (Spring Boot serves static files), use relative path
+    if (window.location.protocol === 'file:') {
+        // For local file testing, default to localhost
+        return 'http://localhost:8080/api';
+    }
+    // For deployment, use relative path or current origin
+    const baseUrl = window.location.origin;
+    return `${baseUrl}/api`;
+};
+
+const API_BASE_URL = getApiUrl();
 
 // Global state
 let appState = {
