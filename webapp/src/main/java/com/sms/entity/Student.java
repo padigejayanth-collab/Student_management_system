@@ -1,15 +1,9 @@
 package com.sms.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "students")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +22,58 @@ public class Student {
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date createdAt;
 
+    public Student() {}
+
+    public Student(String name, String course, Integer semester) {
+        this.name = name;
+        this.course = course;
+        this.semester = semester;
+    }
+
     @PrePersist
     protected void onCreate() {
         createdAt = new java.util.Date();
+    }
+
+    // Getters
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public Integer getSemester() {
+        return semester;
+    }
+
+    public java.util.Date getCreatedAt() {
+        return createdAt;
+    }
+
+    // Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public void setSemester(Integer semester) {
+        this.semester = semester;
+    }
+
+    public void setCreatedAt(java.util.Date createdAt) {
+        this.createdAt = createdAt;
     }
 }
